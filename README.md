@@ -6,6 +6,7 @@ Container inheriting host security -- This is a simple two part demo that shows 
 Boot up STIG'ed RHEL 7 baseline
 
 Verify that docker is installed and running
+
 ```
 subscription-manager repos --enable=rhel-7-server-extras-rpms
 subscription-manager repos --enable=rhel-7-server-optional-rpms
@@ -14,6 +15,7 @@ systemctl start docker.service
 systemctl enable docker.service
 ```
 Verify the docker service is running
+
 ```
 systemctl status docker.service
 ```
@@ -23,14 +25,18 @@ systemctl status docker.service
 Download a sample container to work on (it really doesn’t matter which one afaik)
 
 Purpose:  To show that containers /proc/sys filesystem are read only by default on RHEL7
+
 ```
 docker pull registry.access.redhat.com/rhscl/python-34-rhel7
 docker run -it rhscl/python-34-rhel7 /bin/bash
 [in container] cat /proc/sys/kernel/modules_disabled
 [in container] echo 1 > /proc/sys/kernel/modules_disabled
 ```
+
 You will get an error showing that the container is a read only file system.  No one could use /proc/sys to manipulate the container for evil purposes.
-```exit
+
+```
+exit
 ```
 
 Open a root terminal for docker and for host
